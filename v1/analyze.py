@@ -23,7 +23,7 @@ def draw_pie_chart(res_sheet):
     # Find data in cells C1:C5
     # BUG: Google sheets is taking this as B1:B5;C2:C5 instead of B1:B5;C1:C5
     data = Reference(res_sheet, min_col=3, min_row=1, max_row=5)
-    pie.add_data(data, titles_from_data=True)
+    pie.add_data(data)
     pie.set_categories(labels)
     pie.title = "What did you like best about SKY Schools?"
     pie.height = 7
@@ -33,7 +33,7 @@ def draw_pie_chart(res_sheet):
     pie = PieChart()
     labels = Reference(res_sheet, min_col=2, min_row=8, max_row=11)
     data = Reference(res_sheet, min_col=3, min_row=8, max_row=11)
-    pie.add_data(data, titles_from_data=True)
+    pie.add_data(data)
     pie.set_categories(labels)
     pie.title = "Do you use what you have learned in SKY Schools?"
     pie.height = 7
@@ -44,7 +44,7 @@ def draw_pie_chart(res_sheet):
     pie = PieChart()
     labels = Reference(res_sheet, min_col=2, min_row=14, max_row=16)
     data = Reference(res_sheet, min_col=3, min_row=14, max_row=16)
-    pie.add_data(data, titles_from_data=True)
+    pie.add_data(data)
     pie.set_categories(labels)
     pie.title = " After SKY Schools do you feel: [More focused]"
     pie.height = 7
@@ -55,7 +55,7 @@ def draw_pie_chart(res_sheet):
     pie = PieChart()
     labels = Reference(res_sheet, min_col=2, min_row=19, max_row=21)
     data = Reference(res_sheet, min_col=3, min_row=19, max_row=21)
-    pie.add_data(data, titles_from_data=True)
+    pie.add_data(data)
     pie.set_categories(labels)
     pie.title = " After SKY Schools do you feel: [More calm]"
     pie.height = 7
@@ -66,7 +66,7 @@ def draw_pie_chart(res_sheet):
     pie = PieChart()
     labels = Reference(res_sheet, min_col=2, min_row=24, max_row=26)
     data = Reference(res_sheet, min_col=3, min_row=24, max_row=26)
-    pie.add_data(data, titles_from_data=True)
+    pie.add_data(data)
     pie.set_categories(labels)
     pie.title = " After SKY Schools do you feel: [More relaxed]"
     pie.height = 7
@@ -77,7 +77,7 @@ def draw_pie_chart(res_sheet):
     pie = PieChart()
     labels = Reference(res_sheet, min_col=2, min_row=29, max_row=31)
     data = Reference(res_sheet, min_col=3, min_row=29, max_row=31)
-    pie.add_data(data, titles_from_data=True)
+    pie.add_data(data)
     pie.set_categories(labels)
     pie.title = " After SKY Schools do you feel: [Happier]"
     pie.height = 7
@@ -88,7 +88,7 @@ def draw_pie_chart(res_sheet):
     pie = PieChart()
     labels = Reference(res_sheet, min_col=2, min_row=34, max_row=37)
     data = Reference(res_sheet, min_col=3, min_row=34, max_row=37)
-    pie.add_data(data, titles_from_data=True)
+    pie.add_data(data)
     pie.set_categories(labels)
     pie.title = " After SKY Schools do you feel: [Healthier]"
     pie.height = 7
@@ -99,7 +99,7 @@ def draw_pie_chart(res_sheet):
     pie = PieChart()
     labels = Reference(res_sheet, min_col=2, min_row=39, max_row=41)
     data = Reference(res_sheet, min_col=3, min_row=39, max_row=41)
-    pie.add_data(data, titles_from_data=True)
+    pie.add_data(data)
     pie.set_categories(labels)
     pie.title = " After SKY Schools do you feel: [Less anxious]"
     pie.height = 7
@@ -110,7 +110,7 @@ def draw_pie_chart(res_sheet):
     pie = PieChart()
     labels = Reference(res_sheet, min_col=2, min_row=44, max_row=46)
     data = Reference(res_sheet, min_col=3, min_row=44, max_row=46)
-    pie.add_data(data, titles_from_data=True)
+    pie.add_data(data)
     pie.set_categories(labels)
     pie.title = " After SKY Schools do you feel: [Less stress]"
     pie.height = 7
@@ -121,7 +121,7 @@ def draw_pie_chart(res_sheet):
     pie = PieChart()
     labels = Reference(res_sheet, min_col=2, min_row=49, max_row=50)
     data = Reference(res_sheet, min_col=3, min_row=49, max_row=50)
-    pie.add_data(data, titles_from_data=True)
+    pie.add_data(data)
     pie.set_categories(labels)
     pie.title = "SKY Schools was [Fun]"
     pie.height = 7
@@ -132,7 +132,7 @@ def draw_pie_chart(res_sheet):
     pie = PieChart()
     labels = Reference(res_sheet, min_col=2, min_row=53, max_row=54)
     data = Reference(res_sheet, min_col=3, min_row=53, max_row=54)
-    pie.add_data(data, titles_from_data=True)
+    pie.add_data(data)
     pie.set_categories(labels)
     pie.title = "SKY Schools was [Interesting]"
     pie.height = 7
@@ -143,7 +143,7 @@ def draw_pie_chart(res_sheet):
     pie = PieChart()
     labels = Reference(res_sheet, min_col=2, min_row=57, max_row=58)
     data = Reference(res_sheet, min_col=3, min_row=57, max_row=58)
-    pie.add_data(data, titles_from_data=True)
+    pie.add_data(data)
     pie.set_categories(labels)
     pie.title = "SKY Schools was [Relaxing]"
     pie.height = 7
@@ -169,6 +169,7 @@ def write_result(res_sheet, query, data):
     res_sheet['A' + str(CURRENT_ROW)].alignment = Alignment(vertical='center', horizontal='center')
 
     total_count = 0
+
     # Responses
     for k, v in data.items():
         res_sheet['B' + str(CURRENT_ROW)] = k
