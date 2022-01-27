@@ -5,9 +5,12 @@ from openpyxl.chart import (
         PieChart,
         Reference
 )
+from openpyxl.chart.label import DataLabelList
 
 MAX_ROWS=400
 CURRENT_ROW=1
+HEIGHT=8
+WIDTH=11
 
 wb = openpyxl.load_workbook("./responses.xlsx")
 res_wb = openpyxl.Workbook()
@@ -21,13 +24,15 @@ def draw_pie_chart(res_sheet):
     labels = Reference(res_sheet, min_col=2, min_row=1, max_row=5)
 
     # Find data in cells C1:C5
-    # BUG: Google sheets is taking this as B1:B5;C2:C5 instead of B1:B5;C1:C5
     data = Reference(res_sheet, min_col=3, min_row=1, max_row=5)
     pie.add_data(data)
     pie.set_categories(labels)
     pie.title = "What did you like best about SKY Schools?"
-    pie.height = 7
-    pie.width = 10
+    pie.height = HEIGHT
+    pie.width = WIDTH
+    # Showing data labels as percentage
+    pie.dataLabels = DataLabelList()
+    pie.dataLabels.showPercent = True
     res_sheet.add_chart(pie, "E1")
 
     pie = PieChart()
@@ -36,8 +41,11 @@ def draw_pie_chart(res_sheet):
     pie.add_data(data)
     pie.set_categories(labels)
     pie.title = "Do you use what you have learned in SKY Schools?"
-    pie.height = 7
-    pie.width = 10
+    pie.height = HEIGHT
+    pie.width = WIDTH
+    # Showing data labels as percentage
+    pie.dataLabels = DataLabelList()
+    pie.dataLabels.showPercent = True
     res_sheet.add_chart(pie, "L1")
 
     # Chart for: After SKY Schools do you feel: [More focused]
@@ -47,110 +55,96 @@ def draw_pie_chart(res_sheet):
     pie.add_data(data)
     pie.set_categories(labels)
     pie.title = " After SKY Schools do you feel: [More focused]"
-    pie.height = 7
-    pie.width = 10
+    pie.height = HEIGHT
+    pie.width = WIDTH
+    # Showing data labels as percentage
+    pie.dataLabels = DataLabelList()
+    pie.dataLabels.showPercent = True
     res_sheet.add_chart(pie, "S1")
 
-    # Chart for: After SKY Schools do you feel: [More calm]
+    # Chart for: After SKY Schools do you feel: [More calm and Relaxed]
     pie = PieChart()
     labels = Reference(res_sheet, min_col=2, min_row=19, max_row=21)
     data = Reference(res_sheet, min_col=3, min_row=19, max_row=21)
     pie.add_data(data)
     pie.set_categories(labels)
-    pie.title = " After SKY Schools do you feel: [More calm]"
-    pie.height = 7
-    pie.width = 10
+    pie.title = " After SKY Schools do you feel: [More calm and relaxed]"
+    pie.height = HEIGHT
+    pie.width = WIDTH
+    # Showing data labels as percentage
+    pie.dataLabels = DataLabelList()
+    pie.dataLabels.showPercent = True
     res_sheet.add_chart(pie, "E17")
 
-    # Chart for: After SKY Schools do you feel: [More relaxed]
+    # Chart for: After SKY Schools do you feel: [Happy]
     pie = PieChart()
     labels = Reference(res_sheet, min_col=2, min_row=24, max_row=26)
     data = Reference(res_sheet, min_col=3, min_row=24, max_row=26)
     pie.add_data(data)
     pie.set_categories(labels)
-    pie.title = " After SKY Schools do you feel: [More relaxed]"
-    pie.height = 7
-    pie.width = 10
+    pie.title = " After SKY Schools do you feel: [Happy]"
+    pie.height = HEIGHT
+    pie.width = WIDTH
+    # Showing data labels as percentage
+    pie.dataLabels = DataLabelList()
+    pie.dataLabels.showPercent = True
     res_sheet.add_chart(pie, "L17")
 
-    # Chart for: After SKY Schools do you feel: [Happier]
+    # Chart for: After SKY Schools do you feel: [Healthy]
     pie = PieChart()
     labels = Reference(res_sheet, min_col=2, min_row=29, max_row=31)
     data = Reference(res_sheet, min_col=3, min_row=29, max_row=31)
     pie.add_data(data)
     pie.set_categories(labels)
-    pie.title = " After SKY Schools do you feel: [Happier]"
-    pie.height = 7
-    pie.width = 10
+    pie.title = " After SKY Schools do you feel: [Healthy]"
+    pie.height = HEIGHT
+    pie.width = WIDTH
+    # Showing data labels as percentage
+    pie.dataLabels = DataLabelList()
+    pie.dataLabels.showPercent = True
     res_sheet.add_chart(pie, "S17")
-
-    # Chart for: After SKY Schools do you feel: [Healthier]
-    pie = PieChart()
-    labels = Reference(res_sheet, min_col=2, min_row=34, max_row=37)
-    data = Reference(res_sheet, min_col=3, min_row=34, max_row=37)
-    pie.add_data(data)
-    pie.set_categories(labels)
-    pie.title = " After SKY Schools do you feel: [Healthier]"
-    pie.height = 7
-    pie.width = 10
-    res_sheet.add_chart(pie, "E33")
-
-    # Chart for: After SKY Schools do you feel: [Less anxious]
-    pie = PieChart()
-    labels = Reference(res_sheet, min_col=2, min_row=39, max_row=41)
-    data = Reference(res_sheet, min_col=3, min_row=39, max_row=41)
-    pie.add_data(data)
-    pie.set_categories(labels)
-    pie.title = " After SKY Schools do you feel: [Less anxious]"
-    pie.height = 7
-    pie.width = 10
-    res_sheet.add_chart(pie, "L33")
 
     # Chart for: After SKY Schools do you feel: [Less stress]
     pie = PieChart()
-    labels = Reference(res_sheet, min_col=2, min_row=44, max_row=46)
-    data = Reference(res_sheet, min_col=3, min_row=44, max_row=46)
+    labels = Reference(res_sheet, min_col=2, min_row=34, max_row=36)
+    data = Reference(res_sheet, min_col=3, min_row=34, max_row=36)
     pie.add_data(data)
     pie.set_categories(labels)
     pie.title = " After SKY Schools do you feel: [Less stress]"
-    pie.height = 7
-    pie.width = 10
-    res_sheet.add_chart(pie, "S33")
+    pie.height = HEIGHT
+    pie.width = WIDTH
+    # Showing data labels as percentage
+    pie.dataLabels = DataLabelList()
+    pie.dataLabels.showPercent = True
+    res_sheet.add_chart(pie, "E33")
 
     # Chart for: SKY schools was: [Fun]
     pie = PieChart()
-    labels = Reference(res_sheet, min_col=2, min_row=49, max_row=50)
-    data = Reference(res_sheet, min_col=3, min_row=49, max_row=50)
+    labels = Reference(res_sheet, min_col=2, min_row=39, max_row=40)
+    data = Reference(res_sheet, min_col=3, min_row=39, max_row=40)
     pie.add_data(data)
     pie.set_categories(labels)
     pie.title = "SKY Schools was [Fun]"
-    pie.height = 7
-    pie.width = 10
-    res_sheet.add_chart(pie, "E50")
+    pie.height = HEIGHT
+    pie.width = WIDTH
+    # Showing data labels as percentage
+    pie.dataLabels = DataLabelList()
+    pie.dataLabels.showPercent = True
+    res_sheet.add_chart(pie, "L33")
 
     # Chart for: SKY schools was: [Interesting]
     pie = PieChart()
-    labels = Reference(res_sheet, min_col=2, min_row=53, max_row=54)
-    data = Reference(res_sheet, min_col=3, min_row=53, max_row=54)
+    labels = Reference(res_sheet, min_col=2, min_row=43, max_row=44)
+    data = Reference(res_sheet, min_col=3, min_row=43, max_row=44)
     pie.add_data(data)
     pie.set_categories(labels)
     pie.title = "SKY Schools was [Interesting]"
-    pie.height = 7
-    pie.width = 10
-    res_sheet.add_chart(pie, "L50")
-
-    # Chart for: SKY schools was: [Relaxing]
-    pie = PieChart()
-    labels = Reference(res_sheet, min_col=2, min_row=57, max_row=58)
-    data = Reference(res_sheet, min_col=3, min_row=57, max_row=58)
-    pie.add_data(data)
-    pie.set_categories(labels)
-    pie.title = "SKY Schools was [Relaxing]"
-    pie.height = 7
-    pie.width = 10
-    res_sheet.add_chart(pie, "S50")
-
-
+    pie.height = HEIGHT
+    pie.width = WIDTH
+    # Showing data labels as percentage
+    pie.dataLabels = DataLabelList()
+    pie.dataLabels.showPercent = True
+    res_sheet.add_chart(pie, "S33")
 
 
 def write_result(res_sheet, query, data):
@@ -236,7 +230,7 @@ def how_do_you_feel(sheet, res_sheet):
     global CURRENT_ROW
     # There are 8 questions starting from column 'F'. Used a for loop to iterate
     # through them. Responses follow same format.
-    for c in ['F', 'G', 'H', 'I', 'J', 'K', 'L']:
+    for c in ['F', 'G', 'H', 'I', 'J']:
         col = column_index_from_string(c)
         query = sheet.cell(row=1, column=col).value
 
@@ -260,7 +254,7 @@ def sky_schools_was(sheet, res_sheet):
     global CURRENT_ROW
     # There are 3 questions starting from column 'M'. Used a for loop to iterate
     # through them. Responses follow same format.
-    for c in ['M', 'N', 'O']:
+    for c in ['K', 'L']:
         col = column_index_from_string(c)
         query = sheet.cell(row=1, column=col).value
 
@@ -287,7 +281,7 @@ def main():
         sheet = wb[name]
         res_sheet = res_wb.create_sheet(title=name)
 
-        if sheet.title not in ('Ben Painter', 'Aptitud'):
+        if sheet.title not in ('Hubbard', 'Dorsa', 'Lyndale', 'Ben Painter'):
             continue
 
         # For some reason max_row is coming out large value than actual entries
