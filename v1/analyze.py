@@ -3,7 +3,7 @@ from openpyxl.utils.cell import get_column_letter, column_index_from_string
 from openpyxl.styles import Alignment, Color
 from openpyxl.chart import (
         PieChart,
-        Reference, Series
+        Reference, Series, PieChart3D
 )
 from openpyxl.chart.label import DataLabelList
 from openpyxl.chart.marker import DataPoint
@@ -19,7 +19,7 @@ res_wb = openpyxl.Workbook()
 
 def draw_pie_chart(res_sheet):
     # Chart for: What do you like best about SKY Schools
-    pie = PieChart()
+    pie = PieChart3D()
 
     # Find labels in cells B1:B5
     labels = Reference(res_sheet, min_col=2, min_row=1, max_row=5)
@@ -36,7 +36,7 @@ def draw_pie_chart(res_sheet):
     pie.dataLabels.showPercent = True
     res_sheet.add_chart(pie, "E1")
 
-    pie = PieChart()
+    pie = PieChart3D()
     labels = Reference(res_sheet, min_col=2, min_row=8, max_row=11)
     data = Reference(res_sheet, min_col=3, min_row=8, max_row=11)
     pie.add_data(data)
@@ -50,7 +50,7 @@ def draw_pie_chart(res_sheet):
     res_sheet.add_chart(pie, "L1")
 
     # Chart for: After SKY Schools do you feel: [More focused]
-    pie = PieChart()
+    pie = PieChart3D()
     labels = Reference(res_sheet, min_col=2, min_row=14, max_row=16)
     data = Reference(res_sheet, min_col=3, min_row=14, max_row=16)
     pie.add_data(data)
@@ -61,7 +61,6 @@ def draw_pie_chart(res_sheet):
     # Showing data labels as percentage
     pie.dataLabels = DataLabelList()
     pie.dataLabels.showPercent = True
-    # New Code Starts
     series = pie.series[0]
     #yes series
     pt = openpyxl.chart.marker.DataPoint(idx=0)
@@ -75,11 +74,10 @@ def draw_pie_chart(res_sheet):
     pt2 = openpyxl.chart.marker.DataPoint(idx=2)
     pt2.graphicalProperties.solidFill = "FF0000"
     series.dPt.append(pt2)
-    # New Code Ends
     res_sheet.add_chart(pie, "S1")
 
     # Chart for: After SKY Schools do you feel: [More calm and Relaxed]
-    pie = PieChart()
+    pie = PieChart3D()
     labels = Reference(res_sheet, min_col=2, min_row=19, max_row=21)
     data = Reference(res_sheet, min_col=3, min_row=19, max_row=21)
     pie.add_data(data)
@@ -90,7 +88,6 @@ def draw_pie_chart(res_sheet):
     # Showing data labels as percentage
     pie.dataLabels = DataLabelList()
     pie.dataLabels.showPercent = True
-    # New Code Starts
     series = pie.series[0]
     #yes series
     pt = openpyxl.chart.marker.DataPoint(idx=0)
@@ -104,11 +101,10 @@ def draw_pie_chart(res_sheet):
     pt2 = openpyxl.chart.marker.DataPoint(idx=2)
     pt2.graphicalProperties.solidFill = "FF0000"
     series.dPt.append(pt2)
-    # New Code Ends
     res_sheet.add_chart(pie, "E17")
 
     # Chart for: After SKY Schools do you feel: [Happy]
-    pie = PieChart()
+    pie = PieChart3D()
     labels = Reference(res_sheet, min_col=2, min_row=24, max_row=26)
     data = Reference(res_sheet, min_col=3, min_row=24, max_row=26)
     pie.add_data(data)
@@ -119,7 +115,6 @@ def draw_pie_chart(res_sheet):
     # Showing data labels as percentage
     pie.dataLabels = DataLabelList()
     pie.dataLabels.showPercent = True
-    # New Code Starts
     series = pie.series[0]
     #yes series
     pt = openpyxl.chart.marker.DataPoint(idx=0)
@@ -133,11 +128,10 @@ def draw_pie_chart(res_sheet):
     pt2 = openpyxl.chart.marker.DataPoint(idx=2)
     pt2.graphicalProperties.solidFill = "FF0000"
     series.dPt.append(pt2)
-    # New Code Ends
     res_sheet.add_chart(pie, "L17")
 
     # Chart for: After SKY Schools do you feel: [Healthy]
-    pie = PieChart()
+    pie = PieChart3D()
     labels = Reference(res_sheet, min_col=2, min_row=29, max_row=31)
     data = Reference(res_sheet, min_col=3, min_row=29, max_row=31)
     pie.add_data(data)
@@ -148,7 +142,6 @@ def draw_pie_chart(res_sheet):
     # Showing data labels as percentage
     pie.dataLabels = DataLabelList()
     pie.dataLabels.showPercent = True
-    # New Code Starts
     series = pie.series[0]
     #yes series
     pt = openpyxl.chart.marker.DataPoint(idx=0)
@@ -162,11 +155,10 @@ def draw_pie_chart(res_sheet):
     pt2 = openpyxl.chart.marker.DataPoint(idx=2)
     pt2.graphicalProperties.solidFill = "FF0000"
     series.dPt.append(pt2)
-    # New Code Ends
     res_sheet.add_chart(pie, "S17")
 
     # Chart for: After SKY Schools do you feel: [Less stress]
-    pie = PieChart()
+    pie = PieChart3D()
     labels = Reference(res_sheet, min_col=2, min_row=34, max_row=36)
     data = Reference(res_sheet, min_col=3, min_row=34, max_row=36)
     pie.add_data(data)
@@ -177,7 +169,6 @@ def draw_pie_chart(res_sheet):
     # Showing data labels as percentage
     pie.dataLabels = DataLabelList()
     pie.dataLabels.showPercent = True
-    # New Code Starts
     series = pie.series[0]
     #yes series
     pt = openpyxl.chart.marker.DataPoint(idx=0)
@@ -191,11 +182,10 @@ def draw_pie_chart(res_sheet):
     pt2 = openpyxl.chart.marker.DataPoint(idx=2)
     pt2.graphicalProperties.solidFill = "FF0000"
     series.dPt.append(pt2)
-    # New Code Ends
     res_sheet.add_chart(pie, "E33")
 
     # Chart for: SKY schools was: [Fun]
-    pie = PieChart()
+    pie = PieChart3D()
     labels = Reference(res_sheet, min_col=2, min_row=39, max_row=40)
     data = Reference(res_sheet, min_col=3, min_row=39, max_row=40)
     pie.add_data(data)
@@ -206,7 +196,6 @@ def draw_pie_chart(res_sheet):
     # Showing data labels as percentage
     pie.dataLabels = DataLabelList()
     pie.dataLabels.showPercent = True
-    # New Code Starts
     series = pie.series[0]
     #yes series
     pt = openpyxl.chart.marker.DataPoint(idx=0)
@@ -216,11 +205,10 @@ def draw_pie_chart(res_sheet):
     pt1 = openpyxl.chart.marker.DataPoint(idx=1)
     pt1.graphicalProperties.solidFill = "FF0000"
     series.dPt.append(pt1)
-    # New Code Ends
     res_sheet.add_chart(pie, "L33")
 
     # Chart for: SKY schools was: [Interesting]
-    pie = PieChart()
+    pie = PieChart3D()
     labels = Reference(res_sheet, min_col=2, min_row=43, max_row=44)
     data = Reference(res_sheet, min_col=3, min_row=43, max_row=44)
     pie.add_data(data)
@@ -231,7 +219,6 @@ def draw_pie_chart(res_sheet):
     # Showing data labels as percentage
     pie.dataLabels = DataLabelList()
     pie.dataLabels.showPercent = True
-    # New Code Starts
     series = pie.series[0]
     #yes series
     pt = openpyxl.chart.marker.DataPoint(idx=0)
@@ -241,7 +228,6 @@ def draw_pie_chart(res_sheet):
     pt1 = openpyxl.chart.marker.DataPoint(idx=1)
     pt1.graphicalProperties.solidFill = "FF0000"
     series.dPt.append(pt1)
-    # New Code Ends
     res_sheet.add_chart(pie, "S33")
 
 
