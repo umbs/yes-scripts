@@ -403,7 +403,7 @@ def main():
         sheet = wb[name]
         res_sheet = res_wb.create_sheet(title=name)
 
-        if sheet.title not in ('Hubbard', 'Dorsa', 'Lyndale', 'Ben Painter'):
+        if sheet.title not in ('Hubbard', 'Dorsa', 'Lyndale', 'Ben Painter', 'Horace Cureton', 'Linda Vista'):
             continue
 
         # For some reason max_row is coming out large value than actual entries
