@@ -268,6 +268,41 @@ def draw_pie_chart(res_sheet):
     series.dPt.append(pt1)
     res_sheet.add_chart(pie, "S33")
 
+    # Chart for: What was your level of participation in SKY Schools?
+    pie = PieChart3D()
+    labels = Reference(res_sheet, min_col=2, min_row=47, max_row=51)
+    data = Reference(res_sheet, min_col=3, min_row=47, max_row=51)
+    pie.add_data(data)
+    pie.set_categories(labels)
+    pie.title = "What was your level of participation in SKY Schools?"
+    pie.height = HEIGHT
+    pie.width = WIDTH
+    # Showing data labels as percentage
+    pie.dataLabels = DataLabelList()
+    pie.dataLabels.showPercent = True
+    series = pie.series[0]
+    #first series
+    pt = openpyxl.chart.marker.DataPoint(idx=0)
+    pt.graphicalProperties.solidFill = "00FF00"
+    series.dPt.append(pt)
+    # second series
+    pt1 = openpyxl.chart.marker.DataPoint(idx=1)
+    pt1.graphicalProperties.solidFill = "0000FF"
+    series.dPt.append(pt1)
+    # third series
+    pt2 = openpyxl.chart.marker.DataPoint(idx=2)
+    pt2.graphicalProperties.solidFill = "FF0000"
+    series.dPt.append(pt2)
+    # fourth series
+    pt3 = openpyxl.chart.marker.DataPoint(idx=3)
+    pt3.graphicalProperties.solidFill = "FFFF00"
+    series.dPt.append(pt3)
+    # fifth series
+    pt4 = openpyxl.chart.marker.DataPoint(idx=4)
+    pt4.graphicalProperties.solidFill = "000000"
+    series.dPt.append(pt4)
+    res_sheet.add_chart(pie, "E49")
+
 
 def write_result(res_sheet, query, data):
     # Write data to results excel
@@ -396,6 +431,34 @@ def sky_schools_was(sheet, res_sheet):
         write_result(res_sheet, query, data)
 
 
+def sky_part(sheet, res_sheet):
+    global CURRENT_ROW
+    col = column_index_from_string('O')
+    query = sheet.cell(row=1, column=col).value
+
+    # Each row can have multiple answers, such as [Breathing, Yoga, All of it]
+    # Each answer must be counted.
+    data = dict()
+    for i in range(2, MAX_ROWS):
+        val = sheet.cell(row=i, column=col).value
+
+        if type(val) == int or type(val) == float:
+            str1 = str(int(val * 100))
+            str2 = "%"
+            val = str1+str2
+
+        if val is None:
+            # no more entries?
+            break
+
+        val = val.split(',')
+
+        for v in val:
+            v = v.strip()
+            data[v] = 1 + data.get(v, 0)
+
+    write_result(res_sheet, query, data)
+
 def main():
     global CURRENT_ROW
     for name in wb.sheetnames:
@@ -403,7 +466,7 @@ def main():
         sheet = wb[name]
         res_sheet = res_wb.create_sheet(title=name)
 
-        if sheet.title not in ('Hubbard', 'Dorsa', 'Lyndale', 'Ben Painter', 'Horace Cureton', 'Linda Vista'):
+        if sheet.title not in ('Renaissance'):
             continue
 
         # For some reason max_row is coming out large value than actual entries
@@ -420,6 +483,9 @@ def main():
 
         # 4) SKY schools was fun/interesting/relaxing
         sky_schools_was(sheet, res_sheet)
+
+        # 5) What was your level of participation in SKY Schools?
+        sky_part(sheet, res_sheet)
 
         # Draw pie charts with results
         draw_pie_chart(res_sheet)
