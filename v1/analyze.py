@@ -7,6 +7,14 @@ from openpyxl.chart import (
 )
 from openpyxl.chart.label import DataLabelList
 from openpyxl.chart.marker import DataPoint
+import win32com.client
+import PIL
+from PIL import ImageGrab, Image
+import os
+import sys
+import docx
+from docx.shared import Inches
+import subprocess
 
 MAX_ROWS=400
 CURRENT_ROW=1
@@ -14,6 +22,28 @@ HEIGHT=8
 WIDTH=11
 wb = openpyxl.load_workbook("./responses.xlsx")
 res_wb = openpyxl.Workbook()
+name_of_sheet = ""
+inputFolderPath = os.getcwd()
+inputExcelName = "summary.xlsx"
+inputExcelFilePath = os.path.join(inputFolderPath, inputExcelName)
+reportList = ["Hubbard", "Dorsa", "Lyndale", "Ben Painter", "Horace Cureton", "Linda Vista", "Renaissance"]
+
+def get_sheet1():
+    global inputExcelFilePath
+        
+    # Open the excel application using win32com
+    o = win32com.client.Dispatch("Excel.Application")
+    # Disable alerts and visibility to the user
+    o.Visible = 0
+    o.DisplayAlerts = False
+    
+    # Open workbook
+    wx = o.Workbooks.Open(inputExcelFilePath)
+    sheet = o.Sheets('Sheet')
+    wx.Sheets(1).Delete()
+    wx.Close(SaveChanges=True)
+    o.Quit()
+
 
 def get_pie_data(res_sheet):
     draw_pie_chart(res_sheet, Reference(res_sheet, min_col=2, min_row=1, max_row=5), Reference(res_sheet, min_col=3, min_row=1, max_row=5), "What did you like best about SKY Schools?", "E1", 1)
@@ -29,7 +59,7 @@ def get_pie_data(res_sheet):
 
     
 def draw_pie_chart(res_sheet, pie_label, pie_data, pie_title, pie_place, pie_count):
-    pie = PieChart3D()
+    pie = PieChart()
     labels = pie_label
     data = pie_data
     pie.add_data(data)
@@ -48,7 +78,7 @@ def draw_pie_chart(res_sheet, pie_label, pie_data, pie_title, pie_place, pie_cou
     # second series
     pt1 = openpyxl.chart.marker.DataPoint(idx=1)
     if pie_count == 1:
-        pt1.graphicalProperties.solidFill = "0000FF"
+        pt1.graphicalProperties.solidFill = "00FFFF"
     elif pie_count == 2:
         pt1.graphicalProperties.solidFill = "FF0000"
     series.dPt.append(pt1)
@@ -62,7 +92,7 @@ def draw_pie_chart(res_sheet, pie_label, pie_data, pie_title, pie_place, pie_cou
     series.dPt.append(pt3)
     # fifth series
     pt4 = openpyxl.chart.marker.DataPoint(idx=4)
-    pt4.graphicalProperties.solidFill = "000000"
+    pt4.graphicalProperties.solidFill = "808080"
     series.dPt.append(pt4)
     res_sheet.add_chart(pie, pie_place)
     
@@ -224,14 +254,15 @@ def sky_part(sheet, res_sheet):
 
 def main():
     global CURRENT_ROW
-    global CHART_NUMBER
+    global reportList
     for name in wb.sheetnames:
         CURRENT_ROW = 1
         sheet = wb[name]
         res_sheet = res_wb.create_sheet(title=name)
 
-        if sheet.title not in ('Renaissance'):
-            continue
+        for i in range(len(reportList)):
+            if sheet.title not in (reportList[i]):
+                continue
 
         # For some reason max_row is coming out large value than actual entries
         # max_row = sheet.max_row
@@ -255,6 +286,9 @@ def main():
         get_pie_data(res_sheet)
 
         res_wb.save('summary.xlsx')
+        
+        get_sheet1()
+    
 
 
 if __name__ == "__main__":
